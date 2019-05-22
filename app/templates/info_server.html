@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="text-center">{{ info.server_name }}</h3>
+    </div>
+    <div class="col-lg-offset-3 col-lg-6">
+        <table class="table">
+            <tr>
+                <td class="text-center"><span class="glyphicon glyphicon-expand"></span></td>
+                <td class="text-center">Статус</td>
+                {% if info %}
+                    <td class="text-center"><span class="label label-success">online</span></td>
+                {% else %}
+                    <td class="text-center"><span class="label label-danger">offline</span></td>
+                {% endif %}
+            </tr>
+            {% if info %}
+            <tr>
+                <td class="text-center"><span class="glyphicon glyphicon-transfer"></span></td>
+                <td class="text-center">Адрес</td>
+                <td class="text-center">{{ info.connect }}</td>
+            </tr>
+             <tr>
+                <td class="text-center"><span class="glyphicon glyphicon-user"></span></td>
+                <td class="text-center">Игроков</td>
+                <td class="text-center">{{ info.player_count }}/{{ info.max_players }}</td>
+            </tr>
+            <tr>
+                <td class="text-center"><span class="glyphicon glyphicon-info-sign"></span></td>
+                <td class="text-center">Версия</td>
+                <td class="text-center">{{ info.version }}</td>
+            </tr>
+            <tr>
+                <td class="text-center"><span class="glyphicon glyphicon-globe"></span></td>
+                <td class="text-center">Карта</td>
+                <td class="text-center">{{ info.map }}</td>
+            </tr>
+            <tr>
+                <td class="text-center"><span class="glyphicon glyphicon-dashboard"></span></td>
+                <td class="text-center">Мод</td>
+                <td class="text-center">{{ info.game }}</td>
+            </tr>
+            <tr>
+                <td class="text-center"><span class="glyphicon glyphicon-retweet"></span></td>
+                <td class="text-center">Античит(VAC)</td>
+                <td class="text-center">
+                    {% if info.vac_enabled %}
+                        <span class="label label-success">включен</span>
+                    {% else %}
+                        <span class="label label-danger">выключен</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+    {% if players.player_count %}
+    <div class="col-lg-offset-3 col-lg-6">
+        <h4>Сейчас играют</h4>
+        <table class="table">
+            <tr>
+                <th class="text-center"># </th>
+                <th class="text-center">Логин</th>
+                <th class="text-center">Онлайн</th>
+            </tr>
+            {% for player in players.players %}
+            <tr>
+                <td class="text-center">{{ loop.index }}</td>
+                <td class="text-center">{{ player.name }}</td>
+                <td class="text-center">{{ player.duration|int}} сек.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

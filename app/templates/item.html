@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+<h2>Товар</h2>
+
+<div class="col-lg-6">
+    <div class="thumbnail">
+        <img src="{{ url_for('static', filename=item.get_url_image()) }}" alt="...">
+    </div>
+</div>
+
+<div class="col-lg-6">
+    <div class="thumbnail">
+      <div class="caption">
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.description }}</p>
+          <p class="alert alert-info"> <b>Получение товара</b><br>После согласования и оплаты, необходимо сообщить свой игровой никнейм и предоставить координаты базы (ctrl+shift+alt+L).<br> <b>Купить товар может только зарегистрированный пользователь</b></p>
+        <p>дата добавления: {{ moment(item.date, local=True).format('lll') }}</p>
+        <p>цена: {{ item.price }} руб.</p>
+        <p><a href="{{ url_for('main.order') }}" class="btn btn-success" role="button">Заказать</a> <a href="{{ url_for('main.items_list') }}" class="btn btn-default" role="button">Назад</a></p>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
